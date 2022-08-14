@@ -9,8 +9,8 @@ class GraphqlController < ApplicationController
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      # Query context goes here, for example:
-      # current_user: current_user,
+      session:,
+      current_user:
     }
     result = PolzaBeSchema.execute(query, variables:, context:, operation_name:)
     render json: result
@@ -47,5 +47,23 @@ class GraphqlController < ApplicationController
     logger.error e.backtrace.join("\n")
 
     render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: 500
+  end
+
+  # gets current user from token stored in the session
+  def current_user
+    token = headers['Authentication'].split(' ').last
+    decoded = Auth::JwtDecode.new.call(token:)
+
+    user_id = decoded['data']['user']['id']
+    User.find(user_id)
+  rescue JWT::DecodeError => err
+    # TODO: handle
+    raise err
+  rescue JWT::ExpiredSignature
+    unauthorized!
+  end
+
+  def unauthorized!
+    raise GraphQL::ExecutionError.new('Unauthorized', options: { status: :unauthorized, code: 401 })
   end
 end
