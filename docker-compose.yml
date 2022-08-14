@@ -34,7 +34,7 @@ services:
   app:
     <<: *backend
     ports:
-      - "3000:3000"
+      - "3001:3000"
     command: "bash -c 'rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0'"
   # sidekiq:
   #   <<: *backend
