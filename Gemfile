@@ -6,9 +6,9 @@ ruby "3.1.2"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.3", ">= 7.0.3.1"
 gem "pg", "~> 1.4.3"
-
-# Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
+gem "graphql", "~> 2.0.13"
+
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
