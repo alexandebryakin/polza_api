@@ -1,0 +1,12 @@
+.git
+.dockerignore
+.byebug_history
+.bundle/*
+.idea/*
+.kubernetes/*
+/doc/*
+/coverage/*
+/node_modules/*
+/config/master.key
+/log/*
+/tmp/*
