@@ -16,7 +16,7 @@ class GraphqlController < ApplicationController
       session:,
       current_user:
     }
-    result = PolzaBeSchema.execute(query, variables:, context:, operation_name:)
+    result = PolzaApiSchema.execute(query, variables:, context:, operation_name:)
     render json: result
   rescue StandardError => e
     raise e unless Rails.env.development?

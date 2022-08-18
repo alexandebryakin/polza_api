@@ -1,4 +1,4 @@
-class PolzaBeSchema < GraphQL::Schema
+class PolzaApiSchema < GraphQL::Schema
   mutation(Types::MutationType)
   query(Types::QueryType)
 
