@@ -4,7 +4,11 @@ class GraphqlController < ApplicationController
   # but you'll have to authenticate your user separately
   # protect_from_forgery with: :null_session
 
-  def execute
+  SKIPPABLE_OPERATION_NAMES = [
+    OperationNames::Auth::Users::REGISTER
+  ].freeze
+
+  def execute # rubocop:disable Metrics/MethodLength
     variables = prepare_variables(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]
@@ -49,16 +53,18 @@ class GraphqlController < ApplicationController
     render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: 500
   end
 
-  # gets current user from token stored in the session
   def current_user
-    token = headers['Authentication'].split(' ').last
+    # https://www.howtographql.com/graphql-ruby/4-authentication/
+    return nil if SKIPPABLE_OPERATION_NAMES.include?(params[:operationName])
+
+    token = (headers['Authorization'].presence || '').split(' ').last
     decoded = Auth::JwtDecode.new.call(token:)
 
     user_id = decoded['data']['user']['id']
-    User.find(user_id)
-  rescue JWT::DecodeError => err
+    @current_user = User.find(user_id)
+  rescue JWT::DecodeError => e
     # TODO: handle
-    raise err
+    raise e
   rescue JWT::ExpiredSignature
     unauthorized!
   end
