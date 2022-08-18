@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mutations
   class SigninUser < BaseMutation
     null true
@@ -7,7 +9,7 @@ module Mutations
     field :token, String, null: true
     field :user, Types::UserType, null: true
 
-    def resolve(credentials: nil)
+    def resolve(credentials: nil) # rubocop:disable Metrics/MethodLength
       return if credentials.blank?
 
       user = User.find_by(email: credentials[:email])

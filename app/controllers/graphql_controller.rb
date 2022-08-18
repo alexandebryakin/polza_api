@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GraphqlController < ApplicationController
   # If accessing from outside this domain, nullify the session
   # This allows for outside API access while preventing CSRF attacks,
@@ -27,7 +29,7 @@ class GraphqlController < ApplicationController
   private
 
   # Handle variables in form data, JSON body, or a blank value
-  def prepare_variables(variables_param)
+  def prepare_variables(variables_param) # rubocop:disable Metrics/MethodLength
     case variables_param
     when String
       if variables_param.present?
@@ -46,14 +48,14 @@ class GraphqlController < ApplicationController
     end
   end
 
-  def handle_error_in_development(e)
-    logger.error e.message
-    logger.error e.backtrace.join("\n")
+  def handle_error_in_development(err)
+    logger.error err.message
+    logger.error err.backtrace.join("\n")
 
-    render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: 500
+    render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: :internal_server_error
   end
 
-  def current_user
+  def current_user # rubocop:disable Metrics/AbcSize
     # https://www.howtographql.com/graphql-ruby/4-authentication/
     return nil if SKIPPABLE_OPERATION_NAMES.include?(params[:operationName])
 
