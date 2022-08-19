@@ -7,7 +7,8 @@ class GraphqlController < ApplicationController
   # protect_from_forgery with: :null_session
 
   SKIPPABLE_OPERATION_NAMES = [
-    OperationNames::Auth::Users::REGISTER
+    OperationNames::Auth::Users::REGISTER,
+    OperationNames::Auth::Users::SIGNIN
   ].freeze
 
   def execute # rubocop:disable Metrics/MethodLength

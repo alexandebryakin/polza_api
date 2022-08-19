@@ -3,6 +3,6 @@
 module Types
   class MutationType < Types::BaseObject
     field :create_user, mutation: Mutations::Auth::CreateUser
-    field :login_user, mutation: Mutations::SigninUser
+    field :signin_user, mutation: Mutations::Auth::SigninUser
   end
 end

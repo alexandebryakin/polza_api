@@ -9,7 +9,7 @@ module Mutations
       argument :password, String, required: true
 
       field :user, Types::UserType, null: true
-      field :errors, GraphQL::Types::JSON, null: true
+      field :errors, GraphQL::Types::JSON
 
       def resolve(email:, password:)
         user = User.create(

@@ -18,7 +18,7 @@ RSpec.describe Mutations::Auth::CreateUser, type: :request do
       }
     GRAPHQL
   end
-  let(:operation_name) { 'CreateUser' }
+  let(:operation_name) { OperationNames::Auth::Users::REGISTER }
 
   let(:params) do
     {
