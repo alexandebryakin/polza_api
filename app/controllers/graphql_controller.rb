@@ -53,7 +53,7 @@ class GraphqlController < ApplicationController
     logger.error err.message
     logger.error err.backtrace.join("\n")
 
-    render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: :internal_server_error
+    render json: { errors: [{ message: err.message, backtrace: err.backtrace }], data: {} }, status: :internal_server_error
   end
 
   def current_user # rubocop:disable Metrics/AbcSize
