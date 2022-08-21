@@ -2,8 +2,8 @@
 
 module Mutations
   module Auth
-    class CreateUser < BaseMutation
-      graphql_name OperationNames::Auth::Users::REGISTER
+    class SignupUser < BaseMutation
+      graphql_name OperationNames::Auth::Users::SIGNUP
 
       argument :email, String, required: true
       argument :password, String, required: true

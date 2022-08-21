@@ -3,7 +3,7 @@
 module OperationNames
   module Auth
     module Users
-      REGISTER = 'CreateUser'
+      SIGNUP = 'SignupUser'
       SIGNIN = 'SigninUser'
     end
   end

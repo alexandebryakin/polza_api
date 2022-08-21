@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-RSpec.describe Mutations::Auth::CreateUser, type: :request do
+RSpec.describe Mutations::Auth::SignupUser, type: :request do
   subject(:run_mutation) { post('/graphql', params:) }
 
   let(:query) do
     <<~GRAPHQL
       mutation #{operation_name}($email: String!, $password: String!){
-        createUser(email: $email, password: $password) {
+        signupUser(email: $email, password: $password) {
           user {
             id
             email
@@ -18,7 +18,7 @@ RSpec.describe Mutations::Auth::CreateUser, type: :request do
       }
     GRAPHQL
   end
-  let(:operation_name) { OperationNames::Auth::Users::REGISTER }
+  let(:operation_name) { OperationNames::Auth::Users::SIGNUP }
 
   let(:params) do
     {
@@ -45,11 +45,11 @@ RSpec.describe Mutations::Auth::CreateUser, type: :request do
     it 'returns user attributes', :aggregate_failures do
       run_mutation
 
-      expect(response_body.dig('data', 'createUser', 'user')).to eq(
+      expect(response_body.dig('data', 'signupUser', 'user')).to eq(
         'id' => User.last.id,
         'email' => variables[:email]
       )
-      expect(response_body.dig('data', 'createUser', 'errors')).to eq({})
+      expect(response_body.dig('data', 'signupUser', 'errors')).to eq({})
     end
   end
 
@@ -68,8 +68,8 @@ RSpec.describe Mutations::Auth::CreateUser, type: :request do
     it 'returns errors', :aggregate_failures do
       run_mutation
 
-      expect(response_body.dig('data', 'createUser', 'user')).to be_nil
-      expect(response_body.dig('data', 'createUser', 'errors')).to eq('email' => ["can't be blank", 'is invalid'])
+      expect(response_body.dig('data', 'signupUser', 'user')).to be_nil
+      expect(response_body.dig('data', 'signupUser', 'errors')).to eq('email' => ["can't be blank", 'is invalid'])
     end
   end
 end
