@@ -8,6 +8,7 @@ module Mutations
       argument :email, String, required: true
       argument :password, String, required: true
 
+      field :token, String, null: true
       field :user, Types::UserType, null: true
       field :errors, GraphQL::Types::JSON
 
@@ -17,10 +18,22 @@ module Mutations
           password:
         )
         if user.valid?
-          { user:, errors: {} }
+          { user:, token: token(user), errors: {} }
         else
-          { user: nil, errors: user.errors.messages }
+          { user: nil, token: nil, errors: user.errors.messages }
         end
+      end
+
+      private
+
+      def token(user)
+        ::Auth::JwtEncode.new.call(
+          data: {
+            user: {
+              id: user.id
+            }
+          }
+        )
       end
     end
   end

@@ -13,6 +13,7 @@ RSpec.describe Mutations::Auth::SignupUser, type: :request do
             id
             email
           }
+          token
           errors
         }
       }
@@ -46,10 +47,24 @@ RSpec.describe Mutations::Auth::SignupUser, type: :request do
       run_mutation
 
       expect(response_body.dig('data', 'signupUser', 'user')).to eq(
-        'id' => User.last.id,
+        'id' => response_body.dig('data', 'signupUser', 'user', 'id'),
         'email' => variables[:email]
       )
       expect(response_body.dig('data', 'signupUser', 'errors')).to eq({})
+    end
+
+    it 'returns a JWT' do
+      run_mutation
+
+      expect(response_body.dig('data', 'signupUser', 'token')).to eq(
+        Auth::JwtEncode.new.call(
+          data: {
+            user: {
+              id: response_body.dig('data', 'signupUser', 'user', 'id')
+            }
+          }
+        )
+      )
     end
   end
 
