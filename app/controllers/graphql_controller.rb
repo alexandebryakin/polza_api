@@ -11,7 +11,7 @@ class GraphqlController < ApplicationController
     OperationNames::Auth::Users::SIGNIN
   ].freeze
 
-  def execute # rubocop:disable Metrics/MethodLength
+  def execute # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     variables = prepare_variables(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]
@@ -21,6 +21,8 @@ class GraphqlController < ApplicationController
     }
     result = PolzaApiSchema.execute(query, variables:, context:, operation_name:)
     render json: result
+  rescue JWT::ExpiredSignature
+    head(:unauthorized)
   rescue StandardError => e
     raise e unless Rails.env.development?
 
@@ -61,7 +63,7 @@ class GraphqlController < ApplicationController
     # https://www.howtographql.com/graphql-ruby/4-authentication/
     return nil if SKIPPABLE_OPERATION_NAMES.include?(params[:operationName])
 
-    token = (headers['Authorization'].presence || '').split(' ').last
+    token = (request.headers['Authorization'].presence || '').split(' ').last
     decoded = Auth::JwtDecode.new.call(token:)
 
     user_id = decoded['data']['user']['id']
@@ -69,11 +71,9 @@ class GraphqlController < ApplicationController
   rescue JWT::DecodeError => e
     # TODO: handle
     raise e
-  rescue JWT::ExpiredSignature
-    unauthorized!
   end
 
-  def unauthorized!
-    raise GraphQL::ExecutionError.new('Unauthorized', options: { status: :unauthorized, code: 401 })
-  end
+  # def unauthorized!
+  #   raise GraphQL::ExecutionError.new('Unauthorized', options: { status: :unauthorized, code: 401 })
+  # end
 end
