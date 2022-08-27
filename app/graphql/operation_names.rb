@@ -7,4 +7,8 @@ module OperationNames
       SIGNIN = 'SigninUser'
     end
   end
+
+  module Passports
+    UPSERT = 'UpsertPassport'
+  end
 end

@@ -8,5 +8,13 @@ module Mutations
     def current_user
       context[:current_user]
     end
+
+    def status_success
+      Types::StatusType::SUCCESS
+    end
+
+    def status_failure
+      Types::StatusType::FAILURE
+    end
   end
 end
