@@ -10,5 +10,6 @@ module Types
     field :code, String, null: false
     field :number, String, null: false
     field :verified, Boolean, null: false
+    field :image, Types::Custom::AttachmentType, null: true
   end
 end

@@ -9,6 +9,7 @@ ruby '3.1.2'
 gem 'graphql', '~> 2.0.13'
 gem 'pg', '~> 1.4.3'
 gem 'puma', '~> 5.0'
+gem 'apollo_upload_server', '~> 2.1.4'
 gem 'rails', '~> 7.0.3', '>= 7.0.3.1'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]

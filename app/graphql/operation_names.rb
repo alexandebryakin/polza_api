@@ -10,5 +10,6 @@ module OperationNames
 
   module Passports
     UPSERT = 'UpsertPassport'
+    ATTACH_IMAGE = 'AttachPassportImage'
   end
 end

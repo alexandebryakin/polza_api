@@ -4,6 +4,8 @@ class Passport < ApplicationRecord
   REGEXP_CODE = /\A([0-9]{4})\z/
   REGEXP_NUMBER = /\A([0-9]{6})\z/
 
+  has_one_attached :image
+
   belongs_to :user
 
   validates :first_name, presence: true
