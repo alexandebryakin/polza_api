@@ -579,21 +579,32 @@
           "possibleTypes": null,
           "fields": [
             {
-              "name": "testField",
-              "description": "An example field added by the generator",
+              "name": "passport",
+              "description": null,
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "Passport",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null,
               "args": [
-
+                {
+                  "name": "userId",
+                  "description": null,
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null,
+                  "isDeprecated": false,
+                  "deprecationReason": null
+                }
               ]
             }
           ],

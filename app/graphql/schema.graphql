@@ -37,10 +37,7 @@ type Passport {
 }
 
 type Query {
-  """
-  An example field added by the generator
-  """
-  testField: String!
+  passport(userId: ID!): Passport
 }
 
 """

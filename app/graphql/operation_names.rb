@@ -9,6 +9,7 @@ module OperationNames
   end
 
   module Passports
+    GET_PASSPORT = 'GetPassport'
     UPSERT = 'UpsertPassport'
   end
 end
