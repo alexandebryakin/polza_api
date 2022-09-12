@@ -33,7 +33,7 @@ type Passport {
   middleName: String!
   number: String!
   userId: ID!
-  verified: Boolean!
+  verificationStatus: VerificationStatus!
 }
 
 type Query {
@@ -81,4 +81,10 @@ type User {
   email: String!
   id: ID!
   passport: Passport
+}
+
+enum VerificationStatus {
+  failed
+  in_progress
+  succeded
 }

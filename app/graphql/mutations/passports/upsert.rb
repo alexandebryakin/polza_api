@@ -18,8 +18,9 @@ module Mutations
 
       def resolve(first_name:, last_name:, middle_name:, code:, number:, image:) # rubocop:disable Metrics/ParameterLists
         passport = Passport.find_or_create_by(user: current_user)
-        passport.update(first_name:, last_name:, middle_name:, code:, number:)
-        attachment = ActiveStorage::Blob::create_and_upload!(io: image, filename: image.original_filename, content_type: image.content_type)
+        passport.update(first_name:, last_name:, middle_name:, code:, number:, verification_status: :in_progress)
+        attachment = ActiveStorage::Blob.create_and_upload!(io: image, filename: image.original_filename,
+                                                            content_type: image.content_type)
         passport.image.attach(attachment)
 
         if passport.valid?
@@ -31,6 +32,3 @@ module Mutations
     end
   end
 end
-
-
-

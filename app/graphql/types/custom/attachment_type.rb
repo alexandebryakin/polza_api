@@ -11,13 +11,13 @@ module Types
       field :url, String, null: false
       field :created_at, GraphQL::Types::ISO8601DateTime, null: false
       field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
-  
+
       def url
         return object.service_url if Rails.env.production?
-          
+
         Rails.application.routes.url_helpers.rails_blob_url(object, host: ENV.fetch('HOST'))
       end
-  
+
       def content_type
         object&.content_type
       end

@@ -3,17 +3,17 @@
 require 'rails_helper'
 
 RSpec.describe Mutations::Passports::Upsert, type: :request do
-  subject(:run_mutation) { PolzaApiSchema.execute(query, variables:, context: { current_user: user } ) }
+  subject(:run_mutation) { PolzaApiSchema.execute(query, variables:, context: { current_user: user }) }
 
   let(:user) { create(:user) }
   let(:image) do
     uploaded_file = Rack::Test::UploadedFile.new('spec/fixtures/files/passport.jpeg')
-    
+
     ::ApolloUploadServer::Wrappers::UploadedFile.new(
       ActionDispatch::Http::UploadedFile.new(
         filename: File.basename(uploaded_file),
-        type: "image/jpeg",
-        tempfile: uploaded_file 
+        type: 'image/jpeg',
+        tempfile: uploaded_file
       )
     )
   end
@@ -38,7 +38,7 @@ RSpec.describe Mutations::Passports::Upsert, type: :request do
             middleName
             code
             number
-            verified
+            verificationStatus
             image {
               url
             }
@@ -92,7 +92,7 @@ RSpec.describe Mutations::Passports::Upsert, type: :request do
             'middleName' => variables[:middleName],
             'code' => variables[:code],
             'number' => variables[:number],
-            'verified' => false,
+            'verificationStatus' => 'in_progress',
             'image' => {
               'url' => Rails.application.routes.url_helpers.rails_blob_url(Passport.last.image, host: ENV.fetch('HOST'))
             }
