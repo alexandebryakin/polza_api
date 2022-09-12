@@ -5,6 +5,6 @@ module Types
     field :signup_user, mutation: Mutations::Auth::SignupUser
     field :signin_user, mutation: Mutations::Auth::SigninUser
 
-    field :upsert_passport, mutation: Mutations::UpsertPassport
+    field :upsert_passport, mutation: Mutations::Passports::Upsert
   end
 end
