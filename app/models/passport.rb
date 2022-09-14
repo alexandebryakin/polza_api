@@ -6,7 +6,7 @@ class Passport < ApplicationRecord
 
   VERIFICATION_STATUSES = {
     in_progress: 0,
-    succeded: 1,
+    succeeded: 1,
     failed: 2
   }.freeze
 
