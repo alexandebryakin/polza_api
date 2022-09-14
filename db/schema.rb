@@ -49,7 +49,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_08_153758) do
     t.string "middle_name"
     t.string "code"
     t.string "number"
-    t.boolean "verified", default: false
     t.integer "verification_status", default: 0, null: false
     t.uuid "user_id"
     t.datetime "created_at", null: false

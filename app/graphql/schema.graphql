@@ -83,5 +83,5 @@ type User {
 enum VerificationStatus {
   failed
   in_progress
-  succeded
+  succeeded
 }

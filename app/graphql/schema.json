@@ -898,7 +898,7 @@
               "deprecationReason": null
             },
             {
-              "name": "succeded",
+              "name": "succeeded",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
