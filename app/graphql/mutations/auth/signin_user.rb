@@ -13,7 +13,7 @@ module Mutations
       argument :password, String, required: true
 
       field :token, String, null: true
-      field :user, Types::UserType, null: true
+      field :user, Types::Custom::User, null: true
       field :errors, GraphQL::Types::JSON
 
       def resolve(email:, password:) # rubocop:disable Metrics/MethodLength
