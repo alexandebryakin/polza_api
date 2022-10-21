@@ -13,6 +13,7 @@ RSpec.describe Mutations::Auth::SignupUser, type: :request do
             id
             emails {
               email
+              isPrimary
             }
           }
           token
@@ -50,7 +51,7 @@ RSpec.describe Mutations::Auth::SignupUser, type: :request do
 
       expect(response_body.dig('data', 'signupUser', 'user')).to eq(
         'id' => response_body.dig('data', 'signupUser', 'user', 'id'),
-        'emails' => [{ 'email' => variables[:email] }]
+        'emails' => [{ 'email' => variables[:email], 'isPrimary' => true }]
       )
       expect(response_body.dig('data', 'signupUser', 'errors')).to eq({})
     end

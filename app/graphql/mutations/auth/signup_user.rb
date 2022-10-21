@@ -13,7 +13,7 @@ module Mutations
       field :errors, GraphQL::Types::JSON
 
       def resolve(email:, password:)
-        user = User.create(password:, emails_attributes: [{ email: }])
+        user = User.create(password:, emails_attributes: [{ email:, is_primary: true }])
 
         if user.valid?
           { user:, token: token(user), errors: {} }
