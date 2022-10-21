@@ -2,19 +2,19 @@
 
 require 'rails_helper'
 
-RSpec.describe Mutations::Emails::CreateEmail, type: :request do
+RSpec.describe Mutations::Phones::CreatePhone, type: :request do
   subject(:run_mutation) { PolzaApiSchema.execute(query, variables:, context: { current_user: user }) }
 
   let(:user) { create(:user) }
 
-  let(:operation_name) { OperationNames::Emails::CREATE }
+  let(:operation_name) { OperationNames::Phones::CREATE }
   let(:query) do
     <<~GRAPHQL
-      mutation #{operation_name}($email: String!){
-        createEmail(email: $email) {
-          email {
+      mutation #{operation_name}($number: String!){
+        createPhone(number: $number) {
+          phone {
             id
-            email
+            number
             isPrimary
             verificationStatus
           }
@@ -34,12 +34,14 @@ RSpec.describe Mutations::Emails::CreateEmail, type: :request do
   end
 
   let(:mutation_result) { run_mutation.to_h }
-  let(:data) { mutation_result.dig('data', 'createEmail') }
+  let(:data) { mutation_result.dig('data', 'createPhone') }
 
   context 'with valid data' do
+    let(:number_formatted) { '+7(123) 123-45-67' }
+    let(:number_unformatted) { '71231234567' }
     let(:variables) do
       {
-        email: 'user@org.com'
+        number: number_formatted
       }
     end
 
@@ -47,16 +49,16 @@ RSpec.describe Mutations::Emails::CreateEmail, type: :request do
       expect(data['status']).to eq(Types::StatusType::SUCCESS)
     end
 
-    context 'when email does not exist' do
-      it { expect { run_mutation }.to change { user.emails.count }.by(1) }
+    context 'when phone does not exist' do
+      it { expect { run_mutation }.to change { user.phones.count }.by(1) }
 
-      it 'creates an email and attaches to a user' do # rubocop:disable RSpec/ExampleLength
+      it 'creates a phone and attaches to a user' do # rubocop:disable RSpec/ExampleLength
         mutation_result
 
         expect(data).to eq(
-          'email' => {
-            'id' => Email.last.id,
-            'email' => variables[:email],
+          'phone' => {
+            'id' => user.phones.last.id,
+            'number' => number_unformatted,
             'isPrimary' => false,
             'verificationStatus' => 'in_progress'
           },
@@ -66,18 +68,18 @@ RSpec.describe Mutations::Emails::CreateEmail, type: :request do
       end
     end
 
-    context 'when email exists' do
+    context 'when phone exists' do
       before do
-        create(:email, user:, email: variables[:email])
+        create(:phone, user:, number: number_unformatted)
       end
 
-      it { expect { run_mutation }.not_to change(Email, :count) }
+      it { expect { run_mutation }.not_to change(Phone, :count) }
 
       it 'returns an error' do
         expect(data).to eq(
-          'email' => nil,
+          'phone' => nil,
           'status' => 'failure',
-          'errors' => { email: ['has already been taken'] }
+          'errors' => { number: ['has already been taken'] }
         )
       end
     end
@@ -86,7 +88,7 @@ RSpec.describe Mutations::Emails::CreateEmail, type: :request do
   context 'with invalid data' do
     let(:variables) do
       {
-        email: 'invalid-email'
+        number: 'invalid'
       }
     end
 
@@ -94,11 +96,15 @@ RSpec.describe Mutations::Emails::CreateEmail, type: :request do
       expect(data['status']).to eq(Types::StatusType::FAILURE)
     end
 
-    it { expect { run_mutation }.not_to change(Email, :count) }
+    it { expect { run_mutation }.not_to change(Phone, :count) }
 
     it 'returns errors' do
       expect(data['errors'].stringify_keys).to eq(
-        'email' => ['is invalid']
+        'number' => [
+          "can't be blank",
+          'is invalid',
+          'is the wrong length (should be 11 characters)'
+        ]
       )
     end
   end
