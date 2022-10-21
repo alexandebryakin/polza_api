@@ -11,7 +11,9 @@ RSpec.describe Mutations::Auth::SignupUser, type: :request do
         signupUser(email: $email, password: $password) {
           user {
             id
-            email
+            emails {
+              email
+            }
           }
           token
           errors
@@ -48,7 +50,7 @@ RSpec.describe Mutations::Auth::SignupUser, type: :request do
 
       expect(response_body.dig('data', 'signupUser', 'user')).to eq(
         'id' => response_body.dig('data', 'signupUser', 'user', 'id'),
-        'email' => variables[:email]
+        'emails' => [{ 'email' => variables[:email] }]
       )
       expect(response_body.dig('data', 'signupUser', 'errors')).to eq({})
     end

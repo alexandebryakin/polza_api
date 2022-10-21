@@ -13,7 +13,6 @@ module Mutations
 
       def resolve(email:)
         email = current_user.emails.new(email:)
-        # TODO: change auth beahvior based on emails/phones
 
         if email.save
           { status: status_success, errors: {}, email: }

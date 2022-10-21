@@ -11,7 +11,9 @@ RSpec.describe Mutations::Auth::SigninUser, type: :request do
         signinUser(email: $email, password: $password) {
           user {
             id
-            email
+            emails {
+              email
+            }
           }
           token
           errors
@@ -30,7 +32,8 @@ RSpec.describe Mutations::Auth::SigninUser, type: :request do
 
   let(:response_body) { JSON.parse(response.body) }
 
-  let!(:user) { create(:user, email: 'usr@mail.com', password: '1234') }
+  let!(:user) { create(:user, password: '1234') }
+  let!(:email) { create(:email, user:, email: 'usr@mail.com') }
 
   before do
     run_mutation
@@ -39,7 +42,7 @@ RSpec.describe Mutations::Auth::SigninUser, type: :request do
   context 'with valid data' do
     let(:variables) do
       {
-        email: user.email,
+        email: email.email,
         password: user.password
       }
     end
@@ -60,7 +63,7 @@ RSpec.describe Mutations::Auth::SigninUser, type: :request do
     it 'returns user attributes' do
       expect(response_body.dig('data', 'signinUser', 'user')).to eq(
         'id' => user.id,
-        'email' => user.email
+        'emails' => [{ 'email' => email.email }]
       )
     end
 
@@ -111,7 +114,7 @@ RSpec.describe Mutations::Auth::SigninUser, type: :request do
   context 'when invalid credentials' do
     let(:variables) do
       {
-        email: user.email,
+        email: email.email,
         password: "#{user.password}invalid-pwd-postfix"
       }
     end
