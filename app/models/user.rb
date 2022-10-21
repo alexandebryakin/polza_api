@@ -5,6 +5,7 @@ class User < ApplicationRecord
 
   has_one :passport, required: false, dependent: :destroy
   has_many :phones, dependent: :destroy
+  has_many :emails, dependent: :destroy
 
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  accepts_nested_attributes_for :emails
 end

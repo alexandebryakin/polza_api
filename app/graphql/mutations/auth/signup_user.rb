@@ -13,14 +13,12 @@ module Mutations
       field :errors, GraphQL::Types::JSON
 
       def resolve(email:, password:)
-        user = User.create(
-          email:,
-          password:
-        )
+        user = User.create(password:, emails_attributes: [{ email: }])
+
         if user.valid?
           { user:, token: token(user), errors: {} }
         else
-          { user: nil, token: nil, errors: user.errors.messages }
+          { user: nil, token: nil, errors: transform_error_messages(user.errors.messages) }
         end
       end
 
@@ -34,6 +32,10 @@ module Mutations
             }
           }
         )
+      end
+
+      def transform_error_messages(messages)
+        messages.transform_keys { _1.to_s == 'emails.email' ? 'email' : _1 }
       end
     end
   end

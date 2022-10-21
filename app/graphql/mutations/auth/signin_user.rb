@@ -19,7 +19,7 @@ module Mutations
       def resolve(email:, password:) # rubocop:disable Metrics/MethodLength
         return wrap_response(empty_credentials_errors) if empty_credentials_errors.present?
 
-        user = User.find_by(email:)
+        user = User.joins(:emails).find_by(emails: { email: })
 
         return wrap_response(user: [NOT_FOUND]) if user.blank?
         return wrap_response(user: [INVALID_CREDENTIALS]) unless user.authenticate(password)

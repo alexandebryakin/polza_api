@@ -85,7 +85,7 @@ RSpec.describe Mutations::Passports::Upsert, type: :request do
 
         expect(data).to eq(
           'passport' => {
-            'id' => Passport.last.id,
+            'id' => user.passport.id,
             'userId' => user.id,
             'firstName' => variables[:firstName],
             'lastName' => variables[:lastName],
@@ -94,7 +94,7 @@ RSpec.describe Mutations::Passports::Upsert, type: :request do
             'number' => variables[:number],
             'verificationStatus' => 'in_progress',
             'image' => {
-              'url' => Rails.application.routes.url_helpers.rails_blob_url(Passport.last.image, host: ENV.fetch('HOST'))
+              'url' => Rails.application.routes.url_helpers.rails_blob_url(user.passport.image, host: ENV.fetch('HOST'))
             }
           },
           'status' => 'success',
