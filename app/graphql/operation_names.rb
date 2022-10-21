@@ -21,6 +21,10 @@ module OperationNames
     CREATE = 'CreatePhone'
   end
 
+  module Emails
+    CREATE = 'CreateEmail'
+  end
+
   module Users
     GET_USER = 'GetUser'
   end

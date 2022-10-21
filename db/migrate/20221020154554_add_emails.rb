@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-class AddPhones < ActiveRecord::Migration[7.0]
+class AddEmails < ActiveRecord::Migration[7.0]
   def change
-    create_table :phones, id: :uuid do |t|
-      t.string :number
+    create_table :emails, id: :uuid do |t|
+      t.citext :email
       t.integer :verification_status, default: 0, null: false
       t.boolean :is_primary, default: false, null: false
 
@@ -11,7 +11,7 @@ class AddPhones < ActiveRecord::Migration[7.0]
 
       t.timestamps
 
-      t.index :number, unique: true
+      t.index :email, unique: true
     end
   end
 end

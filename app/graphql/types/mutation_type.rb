@@ -7,5 +7,6 @@ module Types
 
     field :upsert_passport, mutation: Mutations::Passports::Upsert
     field :create_phone, mutation: Mutations::Phones::CreatePhone
+    field :create_email, mutation: Mutations::Emails::CreateEmail
   end
 end
