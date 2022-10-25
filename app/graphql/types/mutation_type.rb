@@ -6,6 +6,7 @@ module Types
     field :signin_user, mutation: Mutations::Auth::SigninUser
 
     field :upsert_passport, mutation: Mutations::Passports::Upsert
+    field :upsert_business_card, mutation: Mutations::BusinessCards::UpsertBusinessCard
     field :create_phone, mutation: Mutations::Phones::CreatePhone
     field :create_email, mutation: Mutations::Emails::CreateEmail
   end
