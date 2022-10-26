@@ -10,7 +10,7 @@ module Mutations
       argument :subtitle, String, required: true
       argument :description, String, required: false
       argument :address, String, required: false
-      argument :status, String, required: false, default_value: :draft
+      argument :status, Types::Custom::PublicationStatusEnum, required: false
       argument :phones, [String], required: true
       argument :emails, [String], required: true
       # argument :logo, ApolloUploadServer::Upload, required: true
