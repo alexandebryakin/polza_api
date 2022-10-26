@@ -17,6 +17,7 @@ type BusinessCard {
   status: PublicationStatusEnum
   subtitle: String!
   title: String!
+  userId: ID!
 }
 
 """
@@ -88,6 +89,7 @@ enum PublicationStatusEnum {
 }
 
 type Query {
+  businessCards(userId: ID!): [BusinessCard!]
   passport(userId: ID!): Passport
   user(userId: ID!): User
 }

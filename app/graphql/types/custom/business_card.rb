@@ -4,6 +4,7 @@ module Types
   module Custom
     class BusinessCard < Types::BaseObject
       field :id, ID, null: false
+      field :user_id, ID, null: false
       field :title, String, null: false
       field :subtitle, String, null: false
       field :description, String, null: true

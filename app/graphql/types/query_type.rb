@@ -10,5 +10,6 @@ module Types
     # They will be entry points for queries on your schema.
     field :passport, resolver: Queries::Passports::GetPassport
     field :user, resolver: Queries::Users::GetUser
+    field :business_cards, resolver: Queries::BusinessCards::GetBusinessCards
   end
 end

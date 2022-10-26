@@ -14,6 +14,7 @@ module OperationNames
   end
 
   module BusinessCards
+    GET_BUSINESS_CARD = 'GetBusinessCard'
     UPSERT = 'UpsertBusinessCard'
   end
 
