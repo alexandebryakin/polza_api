@@ -19,7 +19,7 @@ module Mutations
       field :errors, GraphQL::Types::JSON
       field :business_card, Types::Custom::BusinessCard, null: true
 
-      def resolve(args)
+      def resolve(args) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         business_card = BusinessCard.find_by(id: args[:id]) || BusinessCard.new
         business_card.attributes = args.slice(:title, :subtitle, :description, :address, :status).merge(
           phones: Phone.where(number: args[:phones]),

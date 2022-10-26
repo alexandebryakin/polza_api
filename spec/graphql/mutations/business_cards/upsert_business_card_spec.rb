@@ -76,6 +76,7 @@ RSpec.describe Mutations::BusinessCards::UpsertBusinessCard, type: :request do
       emails: user.emails.last(2).pluck(:email)
     }
   end
+
   context 'with valid data' do
     let(:variables) { business_card_attrs.merge(id: nil) }
 
@@ -129,7 +130,7 @@ RSpec.describe Mutations::BusinessCards::UpsertBusinessCard, type: :request do
     let(:variables) do
       business_card_attrs.merge(
         title: ' ',
-        subtitle: '',
+        subtitle: ''
       )
     end
 

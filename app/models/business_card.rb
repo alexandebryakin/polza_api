@@ -10,7 +10,7 @@ class BusinessCard < ApplicationRecord
   PUBLICATION_STATUSES = {
     draft: 0,
     published: 1
-  }
+  }.freeze
 
   enum :status, PUBLICATION_STATUSES
 
