@@ -16,6 +16,7 @@ module OperationNames
   module BusinessCards
     GET_BUSINESS_CARD = 'GetBusinessCard'
     UPSERT = 'UpsertBusinessCard'
+    DELETE = 'DeleteBusinessCard'
   end
 
   module Phones

@@ -20,7 +20,7 @@ RSpec.describe Mutations::BusinessCards::UpsertBusinessCard, type: :request do
         $title: String!,
         $subtitle: String!,
         $description: String,
-        $address: String!,
+        $address: String,
         $status: PublicationStatusEnum,
         $phones: [String!]!,
         $emails: [String!]!,
