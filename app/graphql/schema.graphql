@@ -99,6 +99,7 @@ enum PublicationStatusEnum {
 }
 
 type Query {
+  businessCard(id: ID!): BusinessCard
   businessCards(userId: ID!): [BusinessCard!]
   passport(userId: ID!): Passport
   user(userId: ID!): User

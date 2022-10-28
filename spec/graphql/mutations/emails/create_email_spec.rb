@@ -55,7 +55,7 @@ RSpec.describe Mutations::Emails::CreateEmail, type: :request do
 
         expect(data).to eq(
           'email' => {
-            'id' => Email.last.id,
+            'id' => Email.find_by(email: variables[:email]).id,
             'email' => variables[:email],
             'isPrimary' => false,
             'verificationStatus' => 'in_progress'

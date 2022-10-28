@@ -6,7 +6,7 @@ RSpec.describe Queries::BusinessCards::GetBusinessCards, type: :request do
   subject(:run_query) { PolzaApiSchema.execute(query, variables:, context: { current_user: user }) }
 
   let(:user) { create(:user) }
-  let(:operation_name) { OperationNames::BusinessCards::GET_BUSINESS_CARD }
+  let(:operation_name) { OperationNames::BusinessCards::GET_BUSINESS_CARDS }
   let(:query) do
     <<~GRAPHQL
       query #{operation_name}(

@@ -3,7 +3,7 @@
 module Queries
   module BusinessCards
     class GetBusinessCards < ::BaseResolver
-      graphql_name OperationNames::BusinessCards::GET_BUSINESS_CARD
+      graphql_name OperationNames::BusinessCards::GET_BUSINESS_CARDS
 
       argument :user_id, ID, required: true
 
