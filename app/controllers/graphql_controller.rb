@@ -8,7 +8,8 @@ class GraphqlController < ApplicationController
 
   SKIPPABLE_OPERATION_NAMES = [
     OperationNames::Auth::Users::SIGNUP,
-    OperationNames::Auth::Users::SIGNIN
+    OperationNames::Auth::Users::SIGNIN,
+    OperationNames::BusinessCards::SHOW
   ].freeze
 
   def execute # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
