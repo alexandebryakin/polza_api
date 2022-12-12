@@ -10,9 +10,10 @@ RSpec.describe Queries::BusinessCards::GetBusinessCards, type: :request do
   let(:query) do
     <<~GRAPHQL
       query #{operation_name}(
-        $userId: ID!
+        $userId: ID,
+        $collectionIds: [ID!]
       ) {
-        businessCards(userId: $userId) {
+        businessCards(userId: $userId, collectionIds: $collectionIds) {
           id
           userId
           title
@@ -73,5 +74,29 @@ RSpec.describe Queries::BusinessCards::GetBusinessCards, type: :request do
 
   context 'when business card does not exist' do
     it { expect(data).to eq([]) }
+  end
+
+  context 'with collection_ids' do
+    let!(:collection1) { create(:collection, user:, business_cards: create_list(:business_card, 1, user:)) }
+    let!(:collection2) { create(:collection, user:, business_cards: create_list(:business_card, 2, user:)) }
+    let!(:collection3) { create(:collection, user:, business_cards: create_list(:business_card, 3, user:)) }
+    let(:variables) do
+      {
+        userId: user.id,
+        collectionIds: [collection1.id, collection3.id]
+      }
+    end
+
+    it 'returns items by collection ids' do
+      expect(data.map { _1['id'] }).to match_array(
+        collection1.business_cards.pluck(:id) + collection3.business_cards.pluck(:id)
+      )
+    end
+  end
+
+  context 'without any arguments' do
+    it 'returns an empty array' do
+      expect(data).to eq([])
+    end
   end
 end

@@ -13,5 +13,7 @@ module Types
 
     field :business_card, resolver: Queries::BusinessCards::ShowBusinessCard
     field :business_cards, resolver: Queries::BusinessCards::GetBusinessCards
+
+    field :collections, resolver: Queries::Collections::GetCollections
   end
 end

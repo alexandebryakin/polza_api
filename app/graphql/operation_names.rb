@@ -18,6 +18,11 @@ module OperationNames
     UPSERT = 'UpsertBusinessCard'
     DELETE = 'DeleteBusinessCard'
     SHOW = 'ShowBusinessCard'
+    ADD_TO_COLLECTION = 'AddToCollection'
+  end
+
+  module Collections
+    GET_COLLECTIONS = 'GetCollections'
   end
 
   module Phones

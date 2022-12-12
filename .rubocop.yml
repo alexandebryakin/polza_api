@@ -5,6 +5,9 @@ require:
 Style/Documentation:
   Enabled: false
 
+RSpec/LetSetup:
+  Enabled: false
+
 RSpec/ExampleLength:
   Max: 10
 

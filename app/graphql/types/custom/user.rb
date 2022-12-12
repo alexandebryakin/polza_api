@@ -7,6 +7,7 @@ module Types
       field :passport, Types::PassportType, null: true
       field :phones, [Types::Custom::Phone], null: false
       field :emails, [Types::Custom::Email], null: false
+      field :collections, [Types::Custom::Collection], null: false
     end
   end
 end
