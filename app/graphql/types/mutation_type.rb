@@ -8,6 +8,7 @@ module Types
     field :upsert_passport, mutation: Mutations::Passports::Upsert
 
     field :add_business_cards_to_collection, mutation: Mutations::BusinessCards::AddBusinessCardsToCollection
+    field :remove_business_cards_from_collection, mutation: Mutations::BusinessCards::RemoveBusinessCardsFromCollection
     field :upsert_business_card, mutation: Mutations::BusinessCards::UpsertBusinessCard
     field :delete_business_card, mutation: Mutations::BusinessCards::DeleteBusinessCard
 

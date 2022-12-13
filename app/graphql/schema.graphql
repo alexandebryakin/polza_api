@@ -81,6 +81,7 @@ type Mutation {
   createEmail(email: String!): CreateEmailPayload
   createPhone(number: String!): CreatePhonePayload
   deleteBusinessCard(id: ID!): DeleteBusinessCardPayload
+  removeBusinessCardsFromCollection(businessCardIds: [ID!]!, collectionId: ID!): Boolean
   signinUser(email: String!, password: String!): SigninUserPayload
   signupUser(email: String!, password: String!): SignupUserPayload
   upsertBusinessCard(address: String, description: String, emails: [String!]!, id: ID, phones: [String!]!, status: PublicationStatusEnum, subtitle: String!, title: String!): UpsertBusinessCardPayload

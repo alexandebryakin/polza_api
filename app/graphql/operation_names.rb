@@ -19,6 +19,7 @@ module OperationNames
     DELETE = 'DeleteBusinessCard'
     SHOW = 'ShowBusinessCard'
     ADD_TO_COLLECTION = 'AddToCollection'
+    REMOVE_FROM_COLLECTION = 'RemoveFromCollection'
   end
 
   module Collections
