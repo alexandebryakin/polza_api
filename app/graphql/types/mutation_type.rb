@@ -5,6 +5,8 @@ module Types
     field :signup_user, mutation: Mutations::Auth::SignupUser
     field :signin_user, mutation: Mutations::Auth::SigninUser
 
+    field :change_current_user_password, mutation: Mutations::Users::ChangeCurrentUserPassword
+
     field :upsert_passport, mutation: Mutations::Passports::Upsert
 
     field :add_business_cards_to_collection, mutation: Mutations::BusinessCards::AddBusinessCardsToCollection

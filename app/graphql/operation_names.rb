@@ -36,5 +36,6 @@ module OperationNames
 
   module Users
     GET_USER = 'GetUser'
+    CHANGE_CURRENT_USER_PASSWORD = 'ChangeCurrentUserPassword'
   end
 end

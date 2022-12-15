@@ -8,6 +8,9 @@ Style/Documentation:
 RSpec/LetSetup:
   Enabled: false
 
+Layout/FirstHashElementIndentation:
+  Enabled: false
+
 RSpec/ExampleLength:
   Max: 10
 
