@@ -2,12 +2,12 @@
 
 namespace :db do
   desc 'Checks to see if the database exists'
-  task :exists do
+  task :exists do # rubocop:disable Rails/RakeEnvironment
     Rake::Task['environment'].invoke
     ActiveRecord::Base.connection
   rescue StandardError
-    exit 1 # rubocop:disable Rails/Exit
+    exit 1
   else
-    exit 0 # rubocop:disable Rails/Exit
+    exit 0
   end
 end
