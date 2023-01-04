@@ -1,24 +1,31 @@
-# README
+# Weuse API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Initial setup
 
-Things you may want to cover:
+→ Clone the repo
 
-* Ruby version
+→ Install `docker` and `docker-compose`
 
-* System dependencies
+→ Copy env file by:
 
-* Configuration
+```bash
+cp .example.env .env
+```
 
-* Database creation
+→ Build docker by using:
 
-* Database initialization
+```bash
+docker-compose -f ./docker-compose.yml -f ./docker/development/docker-compose.yml build
+```
 
-* How to run the test suite
+## Start the app in the `development` environment by:
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+docker-compose -f ./docker-compose.yml -f ./docker/development/docker-compose.yml up -d
+```
 
-* Deployment instructions
+## Stop the app in the `development` environment by:
 
-* ...
+```bash
+docker-compose -f ./docker-compose.yml -f ./docker/development/docker-compose.yml down
+```

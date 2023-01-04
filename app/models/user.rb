@@ -13,6 +13,10 @@ class User < ApplicationRecord
 
   after_create_commit :create_personal_collection!
 
+  scope :by_email, lambda { |email|
+    joins(:emails).where(emails: { email: })
+  }
+
   private
 
   def create_personal_collection!

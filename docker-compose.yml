@@ -1,23 +1,5 @@
 version: "3.4"
 
-x-base-service: &base
-  build:
-    context: .
-    dockerfile: Dockerfile
-  env_file: ./.env
-
-x-backend-service: &backend
-  <<: *base
-  stdin_open: true
-  tty: true
-  volumes:
-    - .:/app
-    - gems:/usr/local/bundle
-    # - ~/.aws:/root/.aws
-  depends_on:
-    - "postgres"
-    - "redis"
-
 services:
   postgres:
     image: "postgres:14.5"
@@ -27,20 +9,27 @@ services:
       - "POSTGRES_PASSWORD=postgres"
     ports:
       - "5432:5432"
+
   redis:
     image: "redis:6.0.6"
     volumes:
       - "redis:/data"
+
   app:
-    <<: *backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # env_file: ./.env # !!! OVERRIDE IN OTHER places
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/app
+    depends_on:
+      - "postgres"
+      - "redis"
     ports:
       - "3001:3000"
-    command: "bash -c 'rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0'"
-  # sidekiq:
-  #   <<: *backend
-  #   command: 'dotenv bundle exec sidekiq'
 
 volumes:
   postgres:
   redis:
-  gems:

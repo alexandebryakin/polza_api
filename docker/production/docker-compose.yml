@@ -1,0 +1,21 @@
+version: "3.4"
+
+services:
+  app:
+    build:
+      # context: .
+      dockerfile: ./docker/production/Dockerfile
+    env_file: ./.production.env
+    restart: always
+    # image: weuse-api-production
+    container_name: weuse-api-production
+    # network_mode: weuse_proxy_gateway_default
+    environment:
+      - VIRTUAL_HOST=api.weuse.ru
+      - VIRTUAL_PORT=3001
+      - LETSENCRYPT_HOST=api.weuse.ru
+      - LETSENCRYPT_EMAIL=digitoider@gmail.com
+# [RUN:]
+# docker-compose -f ./docker-compose.yml -f ./docker/production/docker-compose.yml build
+# docker-compose -f ./docker-compose.yml -f ./docker/production/docker-compose.yml up -d
+# docker-compose -f ./docker-compose.yml -f ./docker/production/docker-compose.yml down

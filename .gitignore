@@ -34,3 +34,4 @@
 
 # Ignore env files
 .env
+.production.env
