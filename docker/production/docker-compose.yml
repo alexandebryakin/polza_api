@@ -1,10 +1,6 @@
 version: "3.4"
 
 services:
-  postgres:
-    network_mode: weuse_proxy_gateway_default
-  redis:
-    network_mode: weuse_proxy_gateway_default
   app:
     build:
       # context: .
@@ -13,7 +9,7 @@ services:
     restart: always
     # image: weuse-api-production
     container_name: weuse-api-production
-    network_mode: weuse_proxy_gateway_default
+    # network_mode: weuse_proxy_gateway_default
     environment:
       - VIRTUAL_HOST=api.weuse.ru
       - VIRTUAL_PORT=3001
