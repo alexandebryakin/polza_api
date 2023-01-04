@@ -1,6 +1,10 @@
 version: "3.4"
 
 services:
+  postgres:
+    network_mode: weuse_proxy_gateway_default
+  redis:
+    network_mode: weuse_proxy_gateway_default
   app:
     build:
       # context: .
