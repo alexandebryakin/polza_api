@@ -1,20 +1,28 @@
 version: "3.4"
 
 services:
+  postgres:
+    container_name: weuse-api-postgres
+  redis:
+    container_name: weuse-api-redis
   app:
     build:
-      # context: .
       dockerfile: ./docker/production/Dockerfile
     env_file: ./.production.env
     restart: always
-    # image: weuse-api-production
     container_name: weuse-api-production
-    # network_mode: weuse_proxy_gateway_default
+    expose:
+      - 80
     environment:
       - VIRTUAL_HOST=api.weuse.ru
-      - VIRTUAL_PORT=3001
+      - VIRTUAL_PORT=80
       - LETSENCRYPT_HOST=api.weuse.ru
       - LETSENCRYPT_EMAIL=digitoider@gmail.com
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
 # [RUN:]
 # docker-compose -f ./docker-compose.yml -f ./docker/production/docker-compose.yml build
 # docker-compose -f ./docker-compose.yml -f ./docker/production/docker-compose.yml up -d
